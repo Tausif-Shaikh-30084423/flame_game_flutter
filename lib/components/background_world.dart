@@ -9,10 +9,10 @@ class BackGroundWorld extends SpriteComponent with HasGameRef {
   Rect? background;
   @override
   Future<void> onLoad() async {
-    sprite = await gameRef.loadSprite('background.png');
+    sprite = await gameRef.loadSprite('background.jpg');
     size = gameRef.size;
     var images = [
-      gameRef.loadParallaxImage('background.png',
+      gameRef.loadParallaxImage('background.jpg',
           fill: LayerFill.width, repeat: ImageRepeat.noRepeat),
     ];
     final layers = images.map((image) async => ParallaxLayer(

@@ -46,14 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text('My Game')),
-        ),
-        body: GameWidget(
-          game: game,
-        ),
-        // This trailing comma makes auto-formatting nicer for build methods.
+      child: GameWidget(
+        game: game,
       ),
     );
   }

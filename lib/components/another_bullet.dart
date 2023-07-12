@@ -5,8 +5,9 @@ import 'package:flame/components.dart';
 import 'package:shooter_flame_game/components/enemy.dart';
 import 'package:shooter_flame_game/components/player.dart';
 
-class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
-  Bullet(this.player) : super(size: Vector2(10, 70));
+class AnotherBullet extends SpriteComponent
+    with HasGameRef, CollisionCallbacks {
+  AnotherBullet(this.player) : super(size: Vector2.all(20));
   // double posx;
   // double? posy;
   Player? player;
@@ -20,18 +21,17 @@ class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
   Future<void> onLoad() async {
     // var myPlayer = player;
     // anotherBullet = Bullet(player);
-    sprite = await gameRef.loadSprite('arrow.png');
+    sprite = await gameRef.loadSprite('bullet.png');
     //position = Vector2(185, 655);
-
-    addPosition((player?.x ?? 0) + 46, player?.y);
-    add(CircleHitbox());
+    addPosition(player?.x, player?.y);
+    add(RectangleHitbox());
   }
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     // TODO: implement onCollision
     if (other is Enemy) {
-      //enemy.addPosition(random.nextDouble() * 365, 0.0);
+      //enemy.addPosition(random.nextDouble() * 356, 0.0);
       print('YESS');
     }
     super.onCollision(intersectionPoints, other);
@@ -40,19 +40,23 @@ class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
   @override
   Future<void> update(double dt) async {
     super.update(dt);
-    _velocity.y = _verticalDirection * _moveSpeed;
     position -= _velocity * dt;
+    _velocity.y = _verticalDirection * _moveSpeed;
+
     if (position.y <= 0) {
-      addPosition((player?.x ?? 0) + 46, player?.y);
+      addPosition(player?.x, player?.y);
     }
-    if (position.y < 655) {}
+    if (position.y < 655) {
+      //await addBullet();
+    }
+    //print(position.y);
   }
 
   void addPosition(double? posx, double? posy) {
     position = Vector2(posx ?? 0, posy ?? 0);
   }
 
-  Future<void> addBullet() async {
-    await add(Bullet(player));
-  }
+  // Future<void> addBullet() async {
+  //   await add(Bullet(player));
+  // }
 }
