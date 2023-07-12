@@ -1,18 +1,24 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:shooter_flame_game/components/bullet.dart';
 import 'package:shooter_flame_game/components/enemy.dart';
+
+import '../gamer.dart';
 
 class Player extends SpriteComponent
     with HasGameRef, KeyboardHandler, CollisionCallbacks {
   Player() : super(size: Vector2(100, 50));
   Vector2 velocity = Vector2.zero();
+  late TimerComponent bulletCreator;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite('player.png');
     position = Vector2(180, 665);
+    add(bulletCreator = TimerComponent(
+        period: 0.05, repeat: true, autoStart: false, onTick: _createBullet));
   }
 
   @override
@@ -48,5 +54,9 @@ class Player extends SpriteComponent
   void onTapUp() {
     velocity.x = 0;
     print(velocity);
+  }
+
+  void _createBullet() {
+    gameRef.add(Bullet(player));
   }
 }

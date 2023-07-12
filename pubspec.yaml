@@ -74,8 +74,9 @@ flutter:
    - assets/images/enemy.gif
 #   - assets/images/orange_balloon.gif
    - assets/images/player.png
-   - assets/images/white_balloon.gif
+   - assets/images/white_balloon.png
    - assets/images/orange_balloon.png
+   - assets/images/green_balloon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

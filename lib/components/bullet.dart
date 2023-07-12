@@ -31,6 +31,7 @@ class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     // TODO: implement onCollision
     if (other is Enemy) {
+      removeFromParent();
       //enemy.addPosition(random.nextDouble() * 365, 0.0);
       print('YESS');
     }
@@ -43,9 +44,10 @@ class Bullet extends SpriteComponent with HasGameRef, CollisionCallbacks {
     _velocity.y = _verticalDirection * _moveSpeed;
     position -= _velocity * dt;
     if (position.y <= 0) {
-      addPosition((player?.x ?? 0) + 46, player?.y);
+      // addPosition((player?.x ?? 0) + 46, player?.y);
+      removeFromParent();
     }
-    if (position.y < 655) {}
+    // if (position.y < 655) {}
   }
 
   void addPosition(double? posx, double? posy) {
